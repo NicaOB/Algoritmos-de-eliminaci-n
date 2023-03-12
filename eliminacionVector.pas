@@ -1,14 +1,17 @@
 program eliminacionVector;
 const
-	dimF = 50;
+	dimF = 10;
 type
 	vNum = array [1 .. dimF] of integer;
 procedure cargarVector(var v:vNum; var dimL:integer);
 	var
-		i:integer;
+		i,n:integer;
 	begin
 		for i:= 1 to dimF do
-			v[i]:= i;
+			begin
+				readln(n);
+				v[i]:= n;
+			end;
 		dimL:= i;
 	end;
 procedure mostrarVector(v:vNum; dimL:integer);
@@ -20,31 +23,25 @@ procedure mostrarVector(v:vNum; dimL:integer);
 	end;
 procedure eliminar(var v:vNum; var dimL:integer);
 	var
-		num,pos:integer;
-		encontre:boolean;
+		num,pos,i:integer;
 	begin
 		pos:= 1;
-		encontre:= false;
 		writeln('Ingrese un numero a eliminar: ');
 		readln(num);
-		while (pos <= dimL) and not (encontre) do
+		while (pos <= dimL) do
 			begin
 				if(v[pos] = num) then
-					encontre:= true
+					begin
+						for i := pos  to (dimL - 1) do
+							begin
+								v[i]:= v[i + 1];
+							end;
+						writeln('El numero se elimino con exito.');
+						dimL:= dimL - 1;
+					end
 				else
 					pos+= 1;
 			end;
-		if(encontre)then
-			begin
-				for pos := pos  to (dimL - 1) do
-					begin
-						v[pos]:= v[pos + 1];
-					end;
-				writeln('El numero se elimino con exito.');
-				dimL:= dimL - 1;
-			end
-		else
-			writeln('El numero no se encuentra en el vector.');
 	end;
 var
 	v:vNum;
